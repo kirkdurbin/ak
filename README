@@ -1,0 +1,74 @@
+rip in packets bha
+thx d1zzy :^)
+
+==== Introduction ====
+
+AK is a module from the uncompleted, now defunct BHA Assault Kit. It is an XSCF engine: provide it with two sites to clone and a blacklist of user-agents/ips, and it will do the following:
+
+1. clone both sites locally
+2. attempt to provide a shortened link to your external IP
+3. start a local http server that presents different pages to regular vs. blacklisted users
+
+The intended use for this is to create a webserver that lies to preview bots such as the ones Facebook, Twitter, and macOS use, and serves different content to normal users. This means that the preview that the targeted service fetches will be different from what the user actually sees.
+
+For more information, please see:
+
+https://nets.ec/Facebook#Content_Forgery
+
+==== Configuration ====
+
+BHAAK has three configuration files:
+
+	ua.cnf
+	ip.cnf
+	ak.cnf
+
+ua.cnf should be a list of blacklisted user agents, and ip.cnf should be a list of blacklisted ip addresses. If anything using these user agents or those ip addresses tries to retrieve a page, it will be served the blacklist response.
+
+ak.conf is the main config file for BHAAK itself, and contains the following properties:
+
+normal_clone		this is the site to clone and serve to normal users
+blacklist_clone	this is the site to clone and serve to preview bots
+api_key			this is a goo.gl api key
+payload			this must be either 'None' or the path to a file; if the latter, the file will be appended to the page served to normal users. We have included some fingerprinting JS
+ftp		either 'True' or 'False', decides whether ips of blacklisted user agents are automatically added to ip.conf. This does not work with macOS or iOS (true by default) 
+
+The clone parameters can either be URLs or links to local files on your system. If they are links, they must be valid links with a http:// or https:// scheme. The api_key is optional, but the daily limit on goo.gl API requests without a key is quite low. 
+
+Once you are configured, simply run ak47.py and follow the instructions. The IP, blacklist status and time of each connection will be logged to access.log once the server is running.
+
+==== Usage ====
+
+cd ./ak
+edit ./conf/*
+edit line 269 in ./payloads/finger.txt
+sudo python ak47.py
+sudo netcat -nvlp 9999
+send URL to target
+execute malicious code
+
+==== Tests ====
+
+To test UA blacklist:
+
+$ curl 127.0.0.1
+	this should return the response that normal users will receive
+$ curl -H "User-Agent: $(head -n 1 conf/ua.cnf)" 127.0.0.1
+	this should return the response that blacklisted user agents will receive
+
+To test IP blacklist:
+
+Visit the page in your browser. You should get the page served to normal users. Now add "127.0.0.1" to ip.cnf and refresh. You should now be served the response that blacklisted IPs will receive.
+
+[?] Help! The link doesn't work!
+
+BHAAK starts an HTTP server on your machine and fetches your external IP, shortening it with goo.gl if it can. If you can't access the webserver by your IP, try disabling your firewall or opening port 80 on your router. All of the normal considerations with setting up a server on Tor or through a proxy or VPN also apply. If you don't understand how a webserver works, you probably shouldn't be using this.
+
+
+
+==== To Do ====
+add payloads beyond fingerprinting
+inject fingerprinting JS into cloned site correctly
+implement an automated listener to catch/parse data
+extend listener to auto-exploit known vulns
+inject BeEF-like hooks
