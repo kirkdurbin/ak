@@ -266,7 +266,7 @@ else {
 
 
 // post json
-var srv = "INSERT SERVER IP HERE:9999";
+var srv = "http://159.89.227.217:9999";
 
 var xhr = new XMLHttpRequest();
 xhr.open("POST", srv, true);

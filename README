@@ -68,7 +68,8 @@ BHAAK starts an HTTP server on your machine and fetches your external IP, shorte
 
 ==== To Do ====
 add payloads beyond fingerprinting
-inject fingerprinting JS into cloned site correctly
-implement an automated listener to catch/parse data
+automate listener to catch/parse data
 extend listener to auto-exploit known vulns
-inject BeEF-like hooks
+inject man in the browser code
+implement new/automated URL shortening (goo.gl deprecated)
+better documentation

@@ -17,7 +17,6 @@ configs = open("conf/ak.cnf", "r").read().splitlines()
 
 normal_clone = None
 blacklist_clone = None
-googl_key = ""
 ftp = True
 payload = None
 
@@ -27,8 +26,6 @@ try:
 			normal_clone = line.split("normal_clone: ")[1]
 		if "blacklist_clone" in line:
 			blacklist_clone = line.split("blacklist_clone: ")[1]
-		if "googl_key" in line:
-			googl_key = line.split("googl_key: ")[1]
 		if "ftp" in line:
 			ftp = line.split("ftp: ")[1]
 			if ftp == "False":
@@ -74,10 +71,10 @@ if payload != None:
 
 print "done."
 
-shortened = shorten.shorten(googl_key)
+## Removed goo.gl \\ add new URL shortening service?
 print "Link to your server: " + shortened
 
 server.webserver(blacklist, normal, ftp)
 
 #TODO: shortener with api key function is a stub, write it
-#implement ftp (save ip from blacklisted ua, may work out of box with FB, Twitter, and Slack) 
+#implement ftp (save ip from blacklisted ua, may work out of box with FB, Twitter, and Slack)
