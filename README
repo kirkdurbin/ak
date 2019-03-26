@@ -31,7 +31,7 @@ normal_clone		this is the site to clone and serve to normal users
 blacklist_clone	this is the site to clone and serve to preview bots
 api_key			this is a goo.gl api key
 payload			this must be either 'None' or the path to a file; if the latter, the file will be appended to the page served to normal users. We have included some fingerprinting JS
-ftp		either 'True' or 'False', decides whether ips of blacklisted user agents are automatically added to ip.conf. This does not work with macOS or iOS (true by default) 
+ftp		either 'True' or 'False', decides whether ips of blacklisted user agents are automatically added to ip.conf. This does not work with macOS or iOS (False by default) 
 
 The clone parameters can either be URLs or links to local files on your system. If they are links, they must be valid links with a http:// or https:// scheme. The api_key is optional, but the daily limit on goo.gl API requests without a key is quite low. 
 

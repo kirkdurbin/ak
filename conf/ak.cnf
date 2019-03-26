@@ -1,5 +1,5 @@
-normal_clone: https://kennywood.com/
-blacklist_clone: https://disney.com/
+normal_clone: https://bing.com/
+blacklist_clone: https://google.com/
 payload: payloads/finger.txt
 googl_key: None
 ftp: False
